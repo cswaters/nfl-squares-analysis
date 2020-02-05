@@ -35,6 +35,18 @@ combine_scr_sprds <- function(df1, df2, season = 2000) {
     count(qtr, fav_last, dog_last, name = 'games')
 }
 
+get_all_scores <- function(df1, df2, season = 2000) {
+  left_join(df1, df2) %>%
+    mutate(
+      fav_scr = ifelse(fav == off, ptso, ptsd),
+      dog_scr = ifelse(fav == off, ptsd, ptso)
+    ) %>%
+    mutate(fav_last = get_last_digit(fav_scr),
+           dog_last = get_last_digit(dog_scr)) %>%
+    # cutoff season
+    filter(seas >= season) %>%
+    select(fav_last, dog_last, qtr)
+}
 
 add_summary_stats <- function(df) {
   df %>%

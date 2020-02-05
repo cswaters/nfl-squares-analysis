@@ -28,4 +28,10 @@ combine_scr_sprds(by_qtr, by_fav, season = 2000) %>%
   readr::write_csv(x = ., 
                    path = 'data/scores_by_quarter.csv')
 
+
+get_all_scores(by_qtr, by_fav, season = 2000) %>% 
+  readr::write_csv(x = ., 
+                   path = 'data/scores_only.csv')
+
+
 rm(list = ls())
